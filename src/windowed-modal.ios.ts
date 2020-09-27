@@ -1,7 +1,6 @@
 import { Color, IOSHelper, Trace, View } from "@nativescript/core";
 import { ExtendedShowModalOptions } from "./windowed-modal.common";
 // tslint:disable-next-line:no-implicit-dependencies
-const viewCommon = require("@nativescript/core/ui/core/view/view-common").ViewCommon;
 
 export function overrideModalViewMethod(): void {
     (View as any).prototype._showNativeModalView = iosModal;
@@ -35,7 +34,7 @@ function iosModal(parent: any, options: ExtendedShowModalOptions) {
 
     this._setupAsRootView({});
 
-    viewCommon.prototype._showNativeModalView.call(this, parentWithController, options);
+    (<any>View).prototype._showNativeModalView.call(this, parentWithController, options);
     let controller = this.viewController;
     if (!controller) {
         const nativeView = this.ios || this.nativeViewProtected;
