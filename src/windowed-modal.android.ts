@@ -2,7 +2,6 @@ import { AndroidActivityBackPressedEventData, Application, Color, Screen, View }
 import { ExtendedShowModalOptions } from "./windowed-modal.common";
 
 // tslint:disable-next-line:no-implicit-dependencies
-const viewCommon = require("@nativescript/core/ui/core/view/view-common").ViewCommon;
 const modalMap = new Map<number, CustomDialogOptions>();
 
 const DOMID = "_domId";
@@ -40,7 +39,7 @@ export function overrideModalViewMethod(): void {
 
 // https://github.com/NativeScript/NativeScript/blob/master/tns-core-modules/ui/core/view/view.android.ts
 function androidModal(parent: any, options: ExtendedShowModalOptions) {
-    viewCommon.prototype._showNativeModalView.call(this, parent, options);
+    (<any>View).prototype._showNativeModalView.call(this, parent, options);
 
     const backgroundColor: Color = this.backgroundColor;
     const dimAmount = options.dimAmount !== undefined ? options.dimAmount : 0.5;
